@@ -10,12 +10,12 @@ import 'package:geocoder/services/base.dart';
 class GoogleGeocoding implements Geocoding {
   static const _host = 'https://maps.google.com/maps/api/geocode/json';
 
-  final String apiKey;
+  final String? apiKey;
   final String? language;
   final Map<String, Object>? headers;
-  final bool preserveHeaderCase;
+  final bool? preserveHeaderCase;
 
-  final HttpClient _httpClient;
+  final HttpClient? _httpClient;
 
   GoogleGeocoding(
     this.apiKey, {
@@ -27,23 +27,23 @@ class GoogleGeocoding implements Geocoding {
   Future<List<Address>> findAddressesFromCoordinates(
       Coordinates coordinates) async {
     final url =
-        '$_host?key=$apiKey${language != null ? '&language=' + language! : ''}&latlng=${coordinates.latitude},${coordinates.longitude}';
+        '$_host?key=${apiKey!}${language != null ? '&language=' + language! : ''}&latlng=${coordinates.latitude},${coordinates.longitude}';
     return await _send(url) ?? const <Address>[];
   }
 
   Future<List<Address>> findAddressesFromQuery(String address) async {
     var encoded = Uri.encodeComponent(address);
-    final url = '$_host?key=$apiKey&address=$encoded';
+    final url = '$_host?key=${apiKey!}&address=$encoded';
     return await _send(url) ?? const <Address>[];
   }
 
   Future<List<Address>?> _send(String url) async {
     //print("Sending $url...");
     final uri = Uri.parse(url);
-    final request = await this._httpClient.getUrl(uri);
+    final request = await this._httpClient!.getUrl(uri);
     if (headers != null) {
       headers!.forEach((key, value) {
-        request.headers.add(key, value, preserveHeaderCase: preserveHeaderCase);
+        request.headers.add(key, value, preserveHeaderCase: preserveHeaderCase!);
       });
     }
     final response = await request.close();

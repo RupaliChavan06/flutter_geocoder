@@ -3,10 +3,10 @@ import 'package:meta/meta.dart';
 @immutable
 class Coordinates {
   /// The geographic coordinate that specifies the north–south position of a point on the Earth's surface.
-  final double latitude;
+  final double? latitude;
 
   /// The geographic coordinate that specifies the east-west position of a point on the Earth's surface.
-  final double longitude;
+  final double? longitude;
 
   Coordinates(this.latitude, this.longitude);
 
@@ -21,7 +21,7 @@ class Coordinates {
         "longitude": this.longitude,
       };
 
-  String toString() => "{$latitude,$longitude}";
+  String toString() => "{${latitude!} ,${longitude!}}";
 }
 
 @immutable
@@ -100,17 +100,17 @@ class Address {
   /// Creates a map from the address properties.
   Map toMap() => {
         "coordinates": this.coordinates?.toMap(),
-        "addressLine": this.addressLine,
-        "countryName": this.countryName,
-        "countryCode": this.countryCode,
-        "featureName": this.featureName,
-        "postalCode": this.postalCode,
-        "locality": this.locality,
-        "subLocality": this.subLocality,
-        "adminArea": this.adminArea,
-        "adminAreaCode": this.adminAreaCode,
-        "subAdminArea": this.subAdminArea,
-        "thoroughfare": this.thoroughfare,
-        "subThoroughfare": this.subThoroughfare,
+        "addressLine": this.addressLine!,
+        "countryName": this.countryName!,
+        "countryCode": this.countryCode!,
+        "featureName": this.featureName!,
+        "postalCode": this.postalCode!,
+        "locality": this.locality!,
+        "subLocality": this.subLocality!,
+        "adminArea": this.adminArea!,
+        "adminAreaCode": this.adminAreaCode!,
+        "subAdminArea": this.subAdminArea!,
+        "thoroughfare": this.thoroughfare!,
+        "subThoroughfare": this.subThoroughfare!,
       };
 }
